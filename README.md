@@ -1,45 +1,114 @@
-Index.html
 <!DOCTYPE html>
-<html>
-<head>
-<title>Team Portfolio</title>
-<link rel="stylesheet" href="style.css"
-</head>
-<body>
-<header>
-<h1>Welcome to Our Team Portfolio</h1>
-</header>
-<section id="team">
-<h2>Meet the Team</h2>
-<div class="profile">
-<h3>Alice</h3>
-<p>Frontend Developer</p>
-</div>
-<div class="profile">
-<h3>Bob</h3>
-<p>UI/UX Designer</p>
-</div>
-<div class="profile">
-<h3>Charlie</h3>
-<p>JavaScript Developer</p>
-</div>
-</section>
-<footer>Contact us at: team@example.com</footer>
-<script src="script.js"> </script>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Dad Jokes</title>
+  </head>
+  <body>
+    <div class="container">
+      <h3>Don't Laugh Challenge</h3>
+      <div id="joke" class="joke">// Joke goes here</div>
+      <button id="jokeBtn" class="btn">Get Another Joke</button>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
-Script.js
-document.querySelectorAll('.profile').forEach(profile => {
-profile.addEventListener('mouseenter', () => {
-profile.style.backgroundColor = '#f0f0f0';
-});
-profile.addEventListener('mouseleave', () => {
-profile.style.backgroundColor = 'white';
-});
-});
-Style.css
-body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-header { background-color: #4CAF50; color: white; padding: 20px; text-align:
-center; }
-.profile { margin: 20px; padding: 10px; border: 1px solid #ddd; }
-footer { text-align: center; padding: 10px; background: #f1f1f1; }
+const jokeEl = document.getElementById('joke')
+const jokeBtn = document.getElementById('jokeBtn')
+
+jokeBtn.addEventListener('click', generateJoke)
+
+generateJoke()
+
+// USING ASYNC/AWAIT
+async function generateJoke() {
+  const config = {
+    headers: {
+      Accept: 'application/json',
+    },
+  }
+
+  const res = await fetch('https://icanhazdadjoke.com', config)
+
+  const data = await res.json()
+
+  jokeEl.innerHTML = data.joke
+}
+
+// USING .then()
+// function generateJoke() {
+//   const config = {
+//     headers: {
+//       Accept: 'application/json',
+//     },
+//   }
+
+//   fetch('https://icanhazdadjoke.com', config)
+//     .then((res) => res.json())
+//     .then((data) => {
+//       jokeEl.innerHTML = data.joke
+//     })
+// }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #686de0;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+  padding: 50px 20px;
+  text-align: center;
+  max-width: 100%;
+  width: 800px;
+}
+
+h3 {
+  margin: 0;
+  opacity: 0.5;
+  letter-spacing: 2px;
+}
+
+.joke {
+  font-size: 30px;
+  letter-spacing: 1px;
+  line-height: 40px;
+  margin: 50px auto;
+  max-width: 600px;
+}
+
+.btn {
+  background-color: #9f68e0;
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+  padding: 14px 40px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:focus {
+  outline: 0;
+}
